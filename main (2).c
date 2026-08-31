@@ -1,0 +1,60 @@
+//Recursive Binary Search
+#include<stdio.h>
+int binarySearch(int arr[], int awal, int akhir, int x){
+    if(akhir >= awal){
+        int mid = awal + (akhir - awal) / 2;
+        
+        //Jika nilai yang dicari adalah dirinya sendiri (berada di tengah)
+        if(arr[mid] == x)
+            return mid;
+        
+        //Jika nilai lebih kecil dari tengah
+        //maka nilai tsb hanya berada di bagian kiri
+        if(arr[mid] > x)
+            return binarySearch(arr, awal, mid - 1, x);
+        
+        //Jika nilai lebih besar, sudah pasti berada di bagian kanan
+        return binarySearch(arr, mid + 1, akhir, x);
+    }
+    
+    //jika baris ini di ekseskusi, maka nilai tidak ada di array
+    return -1;
+}
+
+int main(){
+    int i, j, n;
+    int ketemu = 0;
+    
+    printf("Masukkan ukuran array: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("\n");
+    
+    printf("Masukkan %d angka TERURUT MEMBESAR untuk mengisi nilai array:\n", n);
+    for(i = 0; i < n; i++){
+    scanf("%d", &arr[i]);
+    }
+    
+    printf("\n");
+    
+    printf("Nilai yang sudah dimasukkan:\n");
+    for(i = 0; i < n; i++){
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    
+    printf("\nMasukkan nilai yang ingin dicari: ");
+    scanf("%d", &j);
+    printf("\n");
+    
+    int result = binarySearch(arr, 0, n - 1, j);
+    
+    if(result == -1){
+        printf("Nilai tidak ada dalam array.\n");
+    }
+    else {
+        printf("Nilai ada dalam index %d\n", result);
+    }
+    
+return 0;
+}
