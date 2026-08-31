@@ -1,0 +1,59 @@
+//quick sort
+#include <stdio.h>
+void Tukar(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int pembatas(int arr[], int awal, int akhir) {
+    int pusat = arr[akhir];
+    int sekatKiri = (awal - 1);
+    
+    for(int k = awal; k < akhir; k++){
+        if(arr[k] < pusat) {
+            sekatKiri++;
+            Tukar(&arr[sekatKiri], &arr[k]);
+        }
+    }
+    Tukar(&arr[sekatKiri + 1], &arr[akhir]);
+    return(sekatKiri + 1);
+}
+
+void quickSort(int arr[], int awal, int akhir){
+    if (awal < akhir){
+        int pi = pembatas(arr, awal, akhir);
+        
+        quickSort(arr, awal, pi - 1);
+        quickSort(arr, pi + 1, akhir);
+    }
+}
+
+int main(){
+    int sekatKiri;
+    int n;
+    
+    printf("Masukkan ukuran array: ");
+    scanf("%d", &n);
+    int arr[n];
+    
+    printf("Masukkan %d angka integer acak untuk isi array:\n", n);
+    for(sekatKiri = 0; sekatKiri < n; sekatKiri++){
+        scanf("%d", &arr[sekatKiri]);
+    }
+    
+    printf("Nilai array yang dimasukkan: ");
+    for(sekatKiri = 0; sekatKiri < n; sekatKiri++){
+        printf("%d ", arr[sekatKiri]);
+    }
+    printf("\n");
+    
+    quickSort(arr, 0, n - 1);
+    printf("Data yang sudah diurutkan (Quick Sort): \n");
+    for(sekatKiri = 0; sekatKiri < n; sekatKiri++){
+        printf(" %d ", arr[sekatKiri]);
+    }
+    printf("\n");
+    
+    return 0;
+}
